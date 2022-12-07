@@ -21,33 +21,33 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Movie {
   String get title => throw _privateConstructorUsedError;
+
   int get year => throw _privateConstructorUsedError;
+
   @JsonKey(name: 'medium_cover_image')
   String get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $MovieCopyWith<Movie> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $MovieCopyWith<$Res> {
-  factory $MovieCopyWith(Movie value, $Res Function(Movie) then) =
-      _$MovieCopyWithImpl<$Res, Movie>;
+  factory $MovieCopyWith(Movie value, $Res Function(Movie) then) = _$MovieCopyWithImpl<$Res, Movie>;
+
   @useResult
-  $Res call(
-      {String title,
-      int year,
-      @JsonKey(name: 'medium_cover_image') String image});
+  $Res call({String title, int year, @JsonKey(name: 'medium_cover_image') String image});
 }
 
 /// @nodoc
-class _$MovieCopyWithImpl<$Res, $Val extends Movie>
-    implements $MovieCopyWith<$Res> {
+class _$MovieCopyWithImpl<$Res, $Val extends Movie> implements $MovieCopyWith<$Res> {
   _$MovieCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
+
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -77,21 +77,16 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
 
 /// @nodoc
 abstract class _$$Movie$CopyWith<$Res> implements $MovieCopyWith<$Res> {
-  factory _$$Movie$CopyWith(_$Movie$ value, $Res Function(_$Movie$) then) =
-      __$$Movie$CopyWithImpl<$Res>;
+  factory _$$Movie$CopyWith(_$Movie$ value, $Res Function(_$Movie$) then) = __$$Movie$CopyWithImpl<$Res>;
+
   @override
   @useResult
-  $Res call(
-      {String title,
-      int year,
-      @JsonKey(name: 'medium_cover_image') String image});
+  $Res call({String title, int year, @JsonKey(name: 'medium_cover_image') String image});
 }
 
 /// @nodoc
-class __$$Movie$CopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$Movie$>
-    implements _$$Movie$CopyWith<$Res> {
-  __$$Movie$CopyWithImpl(_$Movie$ _value, $Res Function(_$Movie$) _then)
-      : super(_value, _then);
+class __$$Movie$CopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$Movie$> implements _$$Movie$CopyWith<$Res> {
+  __$$Movie$CopyWithImpl(_$Movie$ _value, $Res Function(_$Movie$) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -120,13 +115,9 @@ class __$$Movie$CopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res, _$Movie$>
 /// @nodoc
 @JsonSerializable()
 class _$Movie$ implements Movie$ {
-  const _$Movie$(
-      {required this.title,
-      required this.year,
-      @JsonKey(name: 'medium_cover_image') required this.image});
+  const _$Movie$({required this.title, required this.year, @JsonKey(name: 'medium_cover_image') required this.image});
 
-  factory _$Movie$.fromJson(Map<String, dynamic> json) =>
-      _$$Movie$FromJson(json);
+  factory _$Movie$.fromJson(Map<String, dynamic> json) => _$$Movie$FromJson(json);
 
   @override
   final String title;
@@ -158,8 +149,7 @@ class _$Movie$ implements Movie$ {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$Movie$CopyWith<_$Movie$> get copyWith =>
-      __$$Movie$CopyWithImpl<_$Movie$>(this, _$identity);
+  _$$Movie$CopyWith<_$Movie$> get copyWith => __$$Movie$CopyWithImpl<_$Movie$>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -171,22 +161,23 @@ class _$Movie$ implements Movie$ {
 
 abstract class Movie$ implements Movie {
   const factory Movie$(
-          {required final String title,
-          required final int year,
-          @JsonKey(name: 'medium_cover_image') required final String image}) =
-      _$Movie$;
+      {required final String title,
+      required final int year,
+      @JsonKey(name: 'medium_cover_image') required final String image}) = _$Movie$;
 
   factory Movie$.fromJson(Map<String, dynamic> json) = _$Movie$.fromJson;
 
   @override
   String get title;
+
   @override
   int get year;
+
   @override
   @JsonKey(name: 'medium_cover_image')
   String get image;
+
   @override
   @JsonKey(ignore: true)
-  _$$Movie$CopyWith<_$Movie$> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$Movie$CopyWith<_$Movie$> get copyWith => throw _privateConstructorUsedError;
 }
