@@ -16,7 +16,7 @@ class MovieAppInfScroll extends StatelessWidget {
       home: const MoviesPage(),
       routes: <String, WidgetBuilder>{
         '/movieDetails': (BuildContext context) {
-          return DetailsPage();
+          return const DetailsPage();
         },
       },
     );
@@ -33,7 +33,7 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   final ScrollController _controller = ScrollController();
   final List<Movie> _movie = <Movie>[];
-  int _page = 1;
+  int page = 1;
   bool _isLoading = true;
 
   @override
@@ -97,7 +97,7 @@ class _MoviesPageState extends State<MoviesPage> {
       body: SafeArea(
         child: Builder(
           builder: (BuildContext context) {
-            if (_isLoading && _page == 1) {
+            if (_isLoading && page == 1) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
