@@ -10,7 +10,6 @@ class Movie with _$Movie {
     required String summary,
     @JsonKey(name: 'medium_cover_image') required String image,
     @JsonKey(name: 'large_cover_image') required String largerImage,
-
     required List<Torrent> torrents,
   }) = Movie$;
 
