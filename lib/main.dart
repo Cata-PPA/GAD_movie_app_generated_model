@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:movie_app_infinite_scroll/data/movie_api.dart';
+import 'package:movie_app_infinite_scroll/models/index.dart';
 
-import 'package:movie_app_infinite_scroll/models/movie.dart';
-
-void main() {
+Future<void> main() async {
   runApp(const MovieAppInfScroll());
 }
 
@@ -14,8 +12,13 @@ class MovieAppInfScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MoviesPage(),
+    return MaterialApp(
+      home: const MoviesPage(),
+      routes: <String, WidgetBuilder>{
+        '/movieDetails': (BuildContext context) {
+          return DetailsPage();
+        },
+      },
     );
   }
 }
@@ -30,7 +33,6 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   final ScrollController _controller = ScrollController();
   final List<Movie> _movie = <Movie>[];
-
   int _page = 1;
   bool _isLoading = true;
 
@@ -52,22 +54,12 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Future<void> _getMovies() async {
-    final Response response = await get(Uri.parse('https://yts.mx/api/v2/list_movies.json?limit=20&page=$_page'));
-    final Map<String, dynamic> map = jsonDecode(response.body) as Map<String, dynamic>;
-    final Map<String, dynamic> data = map['data'] as Map<String, dynamic>;
-    final List<Map<dynamic, dynamic>> movies = List<Map<dynamic, dynamic>>.from(data['movies'] as List<dynamic>);
+    final Client client = Client();
+    final MovieApi api = MovieApi(client);
+    final List<Movie> response = await api.getMovies(1);
 
-    for (final Map<dynamic, dynamic> item in movies) {
-      final Movie movie = Movie(
-        title: item['title'] as String,
-        image: item['medium_cover_image'] as String,
-        year: item['year'] as int,
-      );
-      _movie.add(movie);
-    }
-
-    _page = _page + 1;
     setState(() {
+      _movie.addAll(response);
       _isLoading = false;
     });
   }
@@ -125,14 +117,19 @@ class _MoviesPageState extends State<MoviesPage> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width / 1.2,
-                              height: MediaQuery.of(context).size.height / 1.7,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                image: DecorationImage(
-                                  image: NetworkImage(movie.image),
-                                  fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/movieDetails', arguments: movie);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 1.2,
+                                height: MediaQuery.of(context).size.height / 1.7,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  image: DecorationImage(
+                                    image: NetworkImage(movie.image),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -194,6 +191,46 @@ class _MoviesPageState extends State<MoviesPage> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class DetailsPage extends StatelessWidget {
+  const DetailsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final Movie movie = ModalRoute.of(context)!.settings.arguments! as Movie;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${movie.title} (${movie.year})'),
+      ),
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(
+              textAlign: TextAlign.justify,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              movie.summary,
+            ),
+          ),
+          for (final Torrent torrent in movie.torrents)
+            ListTile(
+              title: Text(
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                torrent.quality,
+              ),
+            ),
+        ],
       ),
     );
   }
