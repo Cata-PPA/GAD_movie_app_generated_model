@@ -14,7 +14,7 @@ _$Movie$ _$$Movie$FromJson(Map<String, dynamic> json) => _$Movie$(
       summary: json['summary'] as String,
       image: json['medium_cover_image'] as String,
       largerImage: json['large_cover_image'] as String,
-      torrents: (json['torrents'] as List<dynamic>).map((e) => Torrent.fromJson(e as Map<String, dynamic>)).toList(),
+      torrents: (json['torrents'] as List<dynamic>).map((dynamic e) => Torrent.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
 Map<String, dynamic> _$$Movie$ToJson(_$Movie$ instance) => <String, dynamic>{
