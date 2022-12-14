@@ -36,7 +36,7 @@ class MovieAppInfScroll extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        home: MoviesPage(),
+        home: const MoviesPage(),
         routes: <String, WidgetBuilder>{
           '/movieDetails': (BuildContext context) {
             return const DetailsPage();
