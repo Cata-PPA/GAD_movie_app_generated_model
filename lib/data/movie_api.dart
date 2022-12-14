@@ -4,6 +4,7 @@ import 'package:movie_app_infinite_scroll/models/index.dart';
 
 class MovieApi {
   const MovieApi(this._client);
+
   final Client _client;
 
   Future<List<Movie>> getMovies(int page) async {
